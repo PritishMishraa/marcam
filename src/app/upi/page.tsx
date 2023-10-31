@@ -1,19 +1,17 @@
 "use client";
 
+import { Drawer } from "vaul";
+import { useState } from "react";
+import OtpInput from "react-otp-input";
+import Balancer from "react-wrap-balancer";
+import { MoveLeft, MoveRight } from "lucide-react";
+
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MoveLeft, MoveRight } from "lucide-react";
-import { Drawer } from "vaul";
-import OTPInput from "@/components/otp-input";
-import { useState } from "react";
-import Balancer from "react-wrap-balancer";
 import { Progress } from "@/components/ui/progress";
 
 const screens = [Screen1, Screen2, Screen3];
@@ -41,7 +39,9 @@ export default function UPIPayment() {
   };
 
   const CurrentScreenComponent = screens[currentScreen];
-
+  {
+    console.log("Drawer Rendered \n");
+  }
   return (
     <div className="relative">
       <div className="max-w-2xl mx-auto text-center pt-64">
@@ -67,7 +67,10 @@ export default function UPIPayment() {
                 <div className="p-4 bg-white rounded-t-[10px] flex-1 md:overflow-hidden overflow-auto">
                   <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-8" />
                   <div className="flex flex-col max-w-2xl mx-auto h-full">
-                    <Progress className="mb-2 min-h-[0.5rem]" value={getProgress()} />
+                    <Progress
+                      className="mb-2 min-h-[0.5rem]"
+                      value={getProgress()}
+                    />
                     <CurrentScreenComponent
                       transactionNumber={transactionNumber}
                       setTransactionNumber={setTransactionNumber}
@@ -119,6 +122,7 @@ function Screen1({
   children?: React.ReactNode;
   handleNextScreen: () => void;
 }) {
+  console.log("Screen1 Rendered \n");
   return (
     <div className="grow">
       <Drawer.Title className="flex text-gray-800 text-lg font-extrabold gap-2 mb-4">
@@ -161,27 +165,50 @@ function Screen1({
 
 function Screen2({
   children,
+  transactionNumber,
   setTransactionNumber,
   handleNextScreen,
 }: {
   children?: React.ReactNode;
+  transactionNumber: string;
   setTransactionNumber: (otp: string) => void;
   handleNextScreen: () => void;
 }) {
+  console.log("Screen2 Rendered \n");
   return (
     <div className="grow">
       <Drawer.Title className="flex text-gray-800 text-lg font-extrabold gap-2 mb-4">
         2. UPI Reference ID or Transaction Number
       </Drawer.Title>
       <div className="flex flex-col md:flex-row items-center lg:items-start justify-evenly gap-6 mt-8">
-        <OTPInput
-          autoFocus
-          length={12}
-          isNumberInput
-          className="grid grid-cols-4 gap-2 max-w-sm min-w-fit w-fit h-fit justify-items-center"
-          inputClassName="w-12 h-12 text-2xl text-center rounded-lg border-2 border-gray-400"
-          onChangeOTP={(otp) => setTransactionNumber(otp)}
-        />
+        <div className="px-4 mx-auto w-full md:hidden">
+          <Input
+            placeholder="123456789000"
+            className="w-full text-2xl font-semibold"
+            autoFocus={true}
+            type="number"
+            value={transactionNumber}
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              if (inputValue.length <= 12) {
+                setTransactionNumber(inputValue);
+              }
+            }}
+          />
+        </div>
+        <div className="hidden md:block">
+          <OtpInput
+            shouldAutoFocus={true}
+            skipDefaultStyles={true}
+            containerStyle="!grid grid-cols-4 gap-2 max-w-sm min-w-fit w-fit h-fit justify-items-center"
+            inputStyle="w-12 h-12 text-2xl text-center rounded-lg border-2 border-gray-400"
+            inputType="number"
+            value={transactionNumber}
+            onChange={setTransactionNumber}
+            numInputs={12}
+            renderInput={(props) => <Input {...props} />}
+          />
+        </div>
         <div className="flex flex-col gap-2 text-justify md:w-1/2 md:p-0 p-4">
           <p className="font-bold text-gray-600">
             Where can I find UPI Reference ID or Transaction Number?
@@ -214,6 +241,7 @@ function Screen3({
   handleNextScreen: () => void;
   handlePrevScreen: () => void;
 }) {
+  console.log("Screen3 Rendered \n");
   return (
     <div className="grow">
       <Drawer.Title className="flex text-gray-800 text-lg font-extrabold gap-2 mb-4">
