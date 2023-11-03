@@ -77,7 +77,7 @@ export default function UPIPayment() {
                       handleNextScreen={handleNextScreen}
                       handlePrevScreen={handlePrevScreen}
                     >
-                      <div className="flex justify-between my-4">
+                      <div className="flex justify-between items-center my-4">
                         <Button
                           variant="outline"
                           className="text-gray-600"
@@ -85,6 +85,11 @@ export default function UPIPayment() {
                         >
                           <MoveLeft />
                         </Button>
+                        <Navigation
+                          length={screens.length}
+                          activeIndex={currentScreen}
+                          setActiveIndex={setCurrentScreen}
+                        />
                         <Button
                           variant="outline"
                           className="text-gray-600"
@@ -278,5 +283,25 @@ function Screen3({
       </div>
       {children}
     </div>
+  );
+}
+
+function Navigation({ setActiveIndex, activeIndex, length }: {
+  setActiveIndex: (index: number) => void;
+  activeIndex: number;
+  length: number;
+}) {
+  return (
+  <div className="flex gap-2">
+    {new Array(length).fill("").map((_, i) => (
+      <span
+        key={i}
+        className={`block h-3 w-3 cursor-pointer rounded-full transition-colors content-[''] ${
+          activeIndex === i ? "bg-black" : "bg-black/10"
+        }`}
+        onClick={() => setActiveIndex(i)}
+      />
+    ))}
+  </div>
   );
 }
