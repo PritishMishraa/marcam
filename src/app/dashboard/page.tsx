@@ -25,7 +25,7 @@ export default async function Dashboard() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="flex flex-col items-center justify-between pt-24">
+      <div className="flex flex-col items-center justify-between container pt-24">
         <div className="max-w-2xl w-full">
           <SubmitBookmark />
           {/* <div className="mb-2 mt-24 text-xs">
