@@ -23,6 +23,11 @@ const Separator = React.forwardRef<
         className
       )}
       {...props}
+      style={{
+        background: `linear-gradient(to ${
+          orientation === "horizontal" ? "right" : "bottom"
+        }, transparent, #dcdcdc, transparent)`,
+      }}
     />
   )
 )

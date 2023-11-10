@@ -69,6 +69,8 @@
 @layer base {
   * {
     @apply border-border;
+    /* https://stackoverflow.com/questions/45049873/how-to-remove-the-blue-highlight-of-button-on-mobile */
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-background text-foreground;
@@ -80,3 +82,24 @@
     margin: 0;
   }
 }
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
