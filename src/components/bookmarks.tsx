@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import { Settings, StickyNote, Trash } from "lucide-react";
+import { ExternalLink, Settings, StickyNote, Trash } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
@@ -94,6 +94,12 @@ export default function Bookmarks() {
                   <div className="text-black">
                     {relativeTime(bookmark.createdAt)}
                   </div>
+
+                  <div className="h-1 w-1 rounded-full bg-slate-500/30" />
+                  
+                  <a href={bookmark.url} target="_blank" rel="noreferrer">
+                    <ExternalLink className="h-3.5 w-3.5 cursor-pointer text-slate-500"/>
+                  </a>
 
                   <div className="h-1 w-1 rounded-full bg-slate-500/30" />
 
