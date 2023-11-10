@@ -29,6 +29,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { updateBookmark } from "@/apis/dashboard-apis";
+import { ThreeDotsLoader } from "./three-dots-loader";
 
 const formSchema = z.object({
   url: z
@@ -110,7 +111,9 @@ export default function EditBookmark({
       </SheetTrigger>
       <SheetContent className="w-11/12 sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle className="text-sm">Let&apos;s edit the URL</SheetTitle>
+          <SheetTitle className="text-sm">
+            Let&apos;s edit the Bookmark
+          </SheetTitle>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -183,7 +186,7 @@ export default function EditBookmark({
               />
 
               <Button className="w-full" type="submit">
-                Submit
+                {mutation.isPending ? <ThreeDotsLoader /> : "Submit"}
               </Button>
             </form>
           </Form>
