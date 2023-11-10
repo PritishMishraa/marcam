@@ -90,6 +90,7 @@ export default function EditBookmark({
     },
     onSuccess: () => {
       setOpen(false);
+      toast.success("Bookmark updated successfully");
       queryClient.invalidateQueries({
         queryKey: ["bookmark"],
       });
